@@ -11,7 +11,7 @@ class Checker(object):
 
 
 checker = Checker()
-limit = 20000
+limit = 10000
 
 start = time()
 xs = [checker(x) for x in range(limit)][::-1]
@@ -22,7 +22,12 @@ start = time()
 xs = list(map(checker, range(limit)))[::-1]
 print('map:', time() - start, ' called:', checker.called)
 
-from pyfunc.not_bad import curry_tail_r_map
+from pyfunc.not_bad import (
+    curry_tail_r_map,
+    straightforward_tail_r_map,
+    straightforward_tail_r_map_2,
+    straightforward_tail_r_map_3,
+)
 
 checker = Checker()
 calculate = curry_tail_r_map(checker)
@@ -38,3 +43,20 @@ start = time()
 xs = calculate(range(limit))[::-1]
 print('r_map with pattern matching:', time() - start, ' called:', checker.called)
 
+checker = Checker()
+calculate = straightforward_tail_r_map(checker)
+start = time()
+xs = calculate(range(limit))[::-1]
+print('straightforward map:', time() - start, ' called:', checker.called)
+
+checker = Checker()
+calculate = straightforward_tail_r_map_2(checker)
+start = time()
+xs = calculate(range(limit))[::-1]
+print('straightforward map 2:', time() - start, ' called:', checker.called)
+
+checker = Checker()
+calculate = straightforward_tail_r_map_3(checker)
+start = time()
+xs = calculate(range(limit))[::-1]
+print('straightforward map 3:', time() - start, ' called:', checker.called)
